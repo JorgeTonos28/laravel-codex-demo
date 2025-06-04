@@ -12,9 +12,17 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         if (! $this->container->isProduction()) {
-            $this->call([DevSeeder::class]);
+            $this->call([
+                DevSeeder::class,
+                RoomSeeder::class,
+                PrivilegedUserSeeder::class,
+            ]);
         } else {
-            $this->call([ProdSeeder::class]);
+            $this->call([
+                ProdSeeder::class,
+                RoomSeeder::class,
+                PrivilegedUserSeeder::class,
+            ]);
         }
     }
 }
