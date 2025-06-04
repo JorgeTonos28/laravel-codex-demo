@@ -22,7 +22,9 @@ Route::middleware('auth')->group(function () {
     Route::get('reservations/create', [\App\Http\Controllers\Web\Reservation\ReservationController::class, 'create'])->name('reservations.create');
     Route::post('reservations', [\App\Http\Controllers\Web\Reservation\ReservationController::class, 'store'])->name('reservations.store');
 
-    Route::get('admin', [\App\Http\Controllers\Web\Admin\AdminController::class, 'index'])->name('admin.index');
-    Route::post('admin/rooms/{room}/toggle', [\App\Http\Controllers\Web\Admin\AdminController::class, 'toggleRoom'])->name('admin.rooms.toggle');
-    Route::post('admin/reservations/{reservation}/cancel', [\App\Http\Controllers\Web\Admin\AdminController::class, 'cancelReservation'])->name('admin.reservations.cancel');
+    Route::prefix('admin')->name('admin.')->group(function () {
+        Route::get('', [\App\Http\Controllers\Web\Admin\AdminController::class, 'index'])->name('index');
+        Route::post('rooms/{room}/toggle', [\App\Http\Controllers\Web\Admin\AdminController::class, 'toggleRoom'])->name('rooms.toggle');
+        Route::post('reservations/{reservation}/cancel', [\App\Http\Controllers\Web\Admin\AdminController::class, 'cancelReservation'])->name('reservations.cancel');
+    });
 });
